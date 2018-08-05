@@ -3,6 +3,10 @@ package com.dubbo.servcie;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.dubbo.api.ProductService;
@@ -11,7 +15,7 @@ import com.dubbo.bean.Product;
 
 @Service(version = "1.0.0")
 public class ProductServiceImpl implements ProductService {
-
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	private static List<Product> ps = new ArrayList<>();
 	static {
 		ps = Arrays.asList(
@@ -20,7 +24,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product findById(String id) {
-		return ps.stream().filter(p -> id.equals(p.getId())).findFirst().get();
+	public List<Product> findById(String id) {
+		if(!"".equals(id)) {
+			ps.stream().filter(p -> id.equals(p.getId())).collect(Collectors.toList());;
+		}
+		return ps;
 	}
 }
