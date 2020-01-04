@@ -1,7 +1,6 @@
 package com.dubbo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -43,8 +42,8 @@ public class PayController {
 	@Reference(retries=-1,parameters = {"failfast"})
 	private OrderService orderService;
 	
-	@GetMapping("/pay/{accountId}")
-	private RestfulResult pay(@PathVariable("accountId")Long accountId) {
+	@GetMapping("/pay")
+	private RestfulResult pay(Long accountId) {
 		orderService.pay(accountId);
 		return RestfulResult.succeed();
 	}

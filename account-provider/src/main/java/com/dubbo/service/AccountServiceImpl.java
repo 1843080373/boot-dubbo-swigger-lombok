@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.dubbo.api.AccountService;
 import com.dubbo.bean.Account;
+import com.dubbo.exception.BusinessException;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -19,9 +20,9 @@ public class AccountServiceImpl implements AccountService {
 	public void substractAccount(Account account) {
 		Account myAccount = getOneById(account.getId());
 		if(myAccount==null) {
-			throw new RuntimeException("賬戶不存在");
+			throw new BusinessException("賬戶不存在");
 		}else if(myAccount.getBalance().compareTo(account.getBalance())<0) {
-			throw new RuntimeException("賬戶餘額不足");
+			throw new BusinessException("賬戶餘額不足");
 		}
 		String sql = "UPDATE `t_account` SET `balance` = `balance`- ?,`updated`=? WHERE id=?";
 	    jdbcTemplate.update(sql, account.getBalance(),new Date(),account.getId());

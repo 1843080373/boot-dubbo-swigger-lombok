@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.Assert;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
 	//@GlobalTransactional
 	public void pay(Long accountId) {
 		//System.out.println("开始全局事务。XID="+RootContext.getXID());
+		Assert.notNull(accountId, "賬戶id不能為空");
 		Order order=new Order();
 		order.setName("iPhone 11");
 		order.setRemark("到货付款");
