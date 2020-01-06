@@ -4,7 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.dubbo.api.AccountService;
 import com.dubbo.api.OrderService;
+import com.dubbo.bean.Account;
 import com.dubbo.common.RestfulResult;
 
 @RestController
@@ -39,12 +41,21 @@ public class PayController {
 	广播调用所有提供者，逐个调用，任意一台报错则报错。(2.1.0开始支持)
 	通常用于通知所有提供者更新缓存或日志等本地资源信息。
 	 */
-	@Reference(retries=-1,parameters = {"failfast"})
+	@Reference(retries=-1,parameters = {"failfast"},validation = "true")
 	private OrderService orderService;
+	@Reference(retries=-1,parameters = {"failfast"},validation = "true")
+	private AccountService accountService;
 	
 	@GetMapping("/pay")
 	private RestfulResult pay(Long accountId) {
 		orderService.pay(accountId);
+		return RestfulResult.succeed();
+	}
+	
+	
+	@GetMapping("/substractAccount")
+	private RestfulResult substractAccount(Account account) {
+		accountService.substractAccount(account);
 		return RestfulResult.succeed();
 	}
 }

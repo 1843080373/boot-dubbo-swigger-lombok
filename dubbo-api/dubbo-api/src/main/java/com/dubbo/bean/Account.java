@@ -3,6 +3,9 @@ package com.dubbo.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class Account implements Serializable {
 
 	/**
@@ -10,10 +13,13 @@ public class Account implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(message = "账户id不能为空")
 	private Long id;
 
+	@NotEmpty(message = "账户名称不能为空")
 	private String name;
 
+	@NotNull(message = "金额不能为空")
 	private BigDecimal balance;
 
 

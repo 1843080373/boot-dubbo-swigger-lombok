@@ -10,7 +10,7 @@ import com.dubbo.api.AccountService;
 import com.dubbo.bean.Account;
 import com.dubbo.exception.BusinessException;
 
-@Service
+@Service(validation = "true")
 public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

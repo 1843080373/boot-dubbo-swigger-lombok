@@ -14,7 +14,7 @@ import com.dubbo.api.OrderService;
 import com.dubbo.bean.Account;
 import com.dubbo.bean.Order;
 
-@Service
+@Service(validation = "true")
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -38,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
 		addOrder(order);
 		
 		Account account=new Account();
+		account.setName("张三");
 		account.setId(accountId);
 		account.setBalance(new BigDecimal(4599));
 		accountService.substractAccount(account);

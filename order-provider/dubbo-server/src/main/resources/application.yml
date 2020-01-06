@@ -1,19 +1,26 @@
-server: 
+server:
   port: 8082
- 
-spring: 
+spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    password: 123456
-    url: jdbc:mysql://localhost:3308/db_order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/db_order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-  dubbo: 
-    application: 
-      name: order-provider
-    registry: 
-      address: zookeeper://127.0.0.1:2181
-    protocol: 
-      name: dubbo
-      port: 20880
-    scan: 
-      com.dubbo.service
+dubbo:
+  application:
+    name: order-provider
+  consumer:
+    check: false
+  protocol:
+    name: dubbo
+    port: 20902
+  provider:
+    retries: 0
+    timeout: 60000
+  reference:
+    check: false
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    check: false
+  scan:
+    basePackages: com.dubbo.service

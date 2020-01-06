@@ -1,14 +1,18 @@
-server: 
+server:
   port: 80
-  
-spring: 
-  dubbo: 
-    application: 
-      name: dubbo-client
-    registry: 
-      address: zookeeper://127.0.0.1:2181
-    protocol: 
-      name: dubbo
-      port: 20880
-    scan: 
-      com.dubbo
+dubbo:
+  application:
+    name: my-consumer
+  consumer:
+    check: false
+    timeout: 60000
+  protocol:
+    name: dubbo
+    port: 20102
+  provider:
+    retries: 0
+  reference:
+    check: false
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    check: false
